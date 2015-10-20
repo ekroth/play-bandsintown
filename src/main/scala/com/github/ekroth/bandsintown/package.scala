@@ -7,6 +7,8 @@
 package com.github.ekroth
 
 package object bandsintown extends Objects {
+  import scala.collection.immutable.Seq
+
   case class Credentials(id: String) {
     def version: String = "2.0"
   }

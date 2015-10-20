@@ -4,11 +4,14 @@
  * http://opensource.org/licenses/MIT
  */
 
-package com.github.ekroth.bandsintown
+package com.github.ekroth
+package bandsintown
 
 /** Objects corresponding to Bandsintown's object model.
   */
 private[bandsintown] trait Objects {
+
+  import scala.collection.immutable.Seq
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
