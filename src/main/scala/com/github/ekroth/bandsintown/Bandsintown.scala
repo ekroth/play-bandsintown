@@ -6,4 +6,6 @@
 
 package com.github.ekroth.bandsintown
 
-trait Bandsintown extends Commands
+trait Bandsintown {
+  val BandsintownAPI: Commands = new Commands {}
+}
