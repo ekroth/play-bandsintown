@@ -58,9 +58,9 @@ private[bandsintown] trait Objects {
     ticket_url: Option[String], ticket_type: Option[String], ticket_status: String, on_sale_datetime: Option[String],
     facebook_rsvp_url: String, description: Option[String], artists: Seq[Artist], venue: Venue)
 
-  object Errors {
-    implicit val ErrorsWrites = Json.writes[Errors].transform(TypeNameFix.afterWrite)
-    implicit val ErrorsReads = Json.reads[Errors].compose(TypeNameFix.beforeRead)
+  object ErrorMessage {
+    implicit val ErrorMessageWrites = Json.writes[ErrorMessage].transform(TypeNameFix.afterWrite)
+    implicit val ErrorMessageReads = Json.reads[ErrorMessage].compose(TypeNameFix.beforeRead)
   }
-  case class Errors(errors: Seq[String])
+  case class ErrorMessage(errors: Seq[String])
 }

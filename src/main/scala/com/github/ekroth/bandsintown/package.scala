@@ -15,7 +15,7 @@ package object bandsintown extends Objects {
 
   import errorhandling._
 
-  object BandsintownError {
+  object BandsintownError extends Errors {
     case class Usage(errors: Seq[String]) extends Error {
       def reason = errors.toString
     }

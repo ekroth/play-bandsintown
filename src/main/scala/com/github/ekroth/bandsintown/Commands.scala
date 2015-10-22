@@ -33,14 +33,12 @@ trait Commands {
         resp <- WS.url(query).get()
       } yield {
 
-        println(query)
-
         resp.json.validate[T] match {
           case JsSuccess(res, _) => res.right
           case e : JsError => {
 
             /* attempt to read errors */
-            resp.json.validate[Errors] match {
+            resp.json.validate[ErrorMessage] match {
               case JsSuccess(res, _) => BandsintownError.Usage(res.errors).left
               case _ : JsError => BandsintownError.Json(e).left
             }
