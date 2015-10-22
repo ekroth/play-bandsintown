@@ -25,6 +25,8 @@ trait Commands {
 
   import errorhandling._
 
+  private[bandsintown] val baseUrl = "http://api.bandsintown.com"
+
   private[bandsintown] def get[T : Reads](query: String)(implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[T] =
     Result.okF {
       for {
@@ -49,23 +51,20 @@ trait Commands {
 
 
   /*private[bandsintown]*/ def findArtist(name: String)(implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[Artist] =
-    get[Artist](s"http://api.bandsintown.com/artists/${name.escaped}".withKey())
+    get[Artist](s"$baseUrl/artists/${name.escaped}".withKey())
 
   def findArtistName(artist: String)(implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[Artist] =
     findArtist(artist)
 
-
   /*private[bandsintown]*/ def findEvents(artist: String)(implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[Seq[Event]] =
-    get[Seq[Event]](s"http://api.bandsintown.com/artists/${artist.escaped}/events".withKey())
-
+    get[Seq[Event]](s"$baseUrl/artists/${artist.escaped}/events".withKey())
 
   /*private[bandsintown]*/ def searchEvents(artist: String, location: String, radius: Int)
     (implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[Seq[Event]]
-  = get[Seq[Event]](s"http://api.bandsintown.com/artists/${artist.escaped}/events/search".withKey() + s"&location=${location.escaped}&radius=$radius")
-
+  = get[Seq[Event]](s"$baseUrl/artists/${artist.escaped}/events/search".withKey() + s"&location=${location.escaped}&radius=$radius")
 
   /*private[bandsintown]*/ def searchRecommended(artist: String, location: String, radius: Int, onlyRecs: Boolean)
     (implicit app: Application, ec: ExecutionContext, srv: Credentials): ResultF[Seq[Event]]
-  = get[Seq[Event]](s"http://api.bandsintown.com/artists/${artist.escaped}/events/recommended".withKey() + s"&location=${location.escaped}&radius=$radius&only_recs=onlyRecs")
+  = get[Seq[Event]](s"$baseUrl/artists/${artist.escaped}/events/recommended".withKey() + s"&location=${location.escaped}&radius=$radius&only_recs=$onlyRecs")
 
 }
